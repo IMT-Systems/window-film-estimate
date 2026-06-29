@@ -260,6 +260,27 @@
     text-align: right;
     margin-top: 8px;
   }
+  .print-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent-2);
+    border: none;
+    box-shadow: var(--shadow);
+  }
+  .print-btn:hover { background: #9a753f; }
+
+  @media print {
+    body { background: #fff; }
+    header { background: #2f4a44 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .total-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    #add-film, #add-window, .icon-btn, .print-btn, .save-status { display: none !important; }
+    input, select { border: none; background: transparent; padding: 2px 0; }
+    .window-card, .film-row, .film-summary-row { box-shadow: none; }
+  }
 </style>
 </head>
 <body>
@@ -293,6 +314,8 @@
     <p class="amount" id="total-price-out">¥0</p>
     <p class="commission" id="commission-out">大輔の取り分10%: ¥0</p>
   </div>
+
+  <button id="print-btn" class="print-btn">📄 見積をPDFで保存</button>
 
   <p class="save-status" id="save-status">保存済み</p>
   <p class="hint" style="text-align:right; margin-top:-2px;">※このデータはリンクを知っている人全員で共有されます</p>
@@ -559,6 +582,10 @@ document.getElementById('add-window').addEventListener('click', () => {
   renderWindows();
   calc();
   saveState();
+});
+
+document.getElementById('print-btn').addEventListener('click', () => {
+  window.print();
 });
 
 (async function init() {
